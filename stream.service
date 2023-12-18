@@ -1,0 +1,13 @@
+[Unit]
+Description=Custom Webcam Streaming Service
+After=multi-user.target
+
+[Service]
+Type=simple
+User=pi
+Nice=-4
+ExecStart=/home/pi/stream.sh
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
