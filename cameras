@@ -1,0 +1,23 @@
+---
+- hosts: cameras
+  become: true
+  become_user: root
+  #strategy: free
+  gather_facts: no
+
+- name: Install Stuff
+  apt:
+    name: ffmpeg
+    name: vlc
+    state: present
+
+- name: Install script
+  template: sec=stream.sh dest=/home/pi/stream.sh
+
+- name: install myservice systemd unit file
+  template: src=stream.service dest=/etc/systemd/system/stream.service
+
+- name: start Stream
+  systemd: state=started name=stream daemon_reload=yes
+
+
